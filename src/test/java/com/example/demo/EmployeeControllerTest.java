@@ -46,8 +46,8 @@ public class EmployeeControllerTest {
     public void test_GetAll(){
         Mockito.when(employeeService.getAllEmployees())
                 .thenReturn(new ArrayList<>());
-        given()
-        mockMvc.perform(get())
+//        given()
+//        mockMvc.perform(get())
     }
 
 }
