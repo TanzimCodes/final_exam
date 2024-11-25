@@ -18,6 +18,10 @@ import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest(controllers = EmployeeController.class)
@@ -34,20 +38,23 @@ public class EmployeeControllerTest {
     private EmployeeRequestDto employeeRequestDto;
     @BeforeEach
     public void init(){
-        employeeRequestDto = new EmployeeRequestDto(
-                "Tan",
+        employeeResponseDto = new EmployeeResponseDto(
+                1L,
                 "@",
                 "0",
-                LocalDate.now()
+                "1",
+                LocalDate.now(),
+                null
                 );
     }
 
     @Test
-    public void test_GetAll(){
+    public void test_GetAll() throws Exception {
+
         Mockito.when(employeeService.getAllEmployees())
-                .thenReturn(new ArrayList<>());
-//        given()
-//        mockMvc.perform(get())
+                .thenReturn(Arrays.asList(employeeResponseDto));
+
+     mockMvc.perform(get("/api/v1/employees")).andExpect(status().isOk());
     }
 
 }
